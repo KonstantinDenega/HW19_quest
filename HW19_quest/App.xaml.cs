@@ -34,14 +34,5 @@ namespace HW19_quest
             //moduleCatalog.AddModule<ModuleStatus>();
             //moduleCatalog.AddModule<ModulManager>();
         }
-
-        protected override void OnInitialized()
-        {
-            var login = Container.Resolve<Login>();
-            var result = login.ShowDialog();
-
-            if (result.Value)
-                base.OnInitialized();
-        }
     }
 }

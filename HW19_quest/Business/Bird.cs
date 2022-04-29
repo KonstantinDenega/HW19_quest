@@ -9,6 +9,7 @@ namespace HW19_quest.Business
     internal class Bird : ICreature
     {
         #region Свойства
+        public string Name { get; set; }
         public string SkinCovers { get; set; }
         public string Skeleton { get; set; }
         public string MuscularSystem { get; set; }
@@ -17,8 +18,9 @@ namespace HW19_quest.Business
         public string NervousSystem { get; set; }
         #endregion
 
-        public Bird(string SkinCovers, string Skeleton, string MuscularSystem, string RespiratorySystem, string BloodSystem, string NervousSystem)
+        public Bird(string Name, string SkinCovers, string Skeleton, string MuscularSystem, string RespiratorySystem, string BloodSystem, string NervousSystem)
         {
+            this.Name = Name;
             this.SkinCovers = SkinCovers;
             this.Skeleton = Skeleton;
             this.MuscularSystem = MuscularSystem;
@@ -29,7 +31,7 @@ namespace HW19_quest.Business
 
         public override string ToString()
         {
-            return $"{this.SkinCovers} {this.Skeleton} {this.MuscularSystem} {this.RespiratorySystem} {this.BloodSystem} {this.NervousSystem}";
+            return $"{this.Name} {this.SkinCovers} {this.Skeleton} {this.MuscularSystem} {this.RespiratorySystem} {this.BloodSystem} {this.NervousSystem}";
         }
     }
 }

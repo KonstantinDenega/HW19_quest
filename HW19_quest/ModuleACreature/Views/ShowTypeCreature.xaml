@@ -20,6 +20,9 @@
         </Grid.RowDefinitions>-->
 
         <TextBlock Text="Work" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="72"/>
+        <ListBox
+            ItemsSource="{Binding TempCreature}"
+            HorizontalAlignment="Left"/>
 
     </Grid>
 </UserControl>

@@ -17,7 +17,7 @@ namespace HW19_quest.Business
         public string NervousSystem { get; set; }
         #endregion
 
-        public Mammal(string SkinCovers, string Skeleton, string MuscularSystem, string RespiratorySystem, string BloodSystem, string NervousSystem)
+        public Amphibia(string SkinCovers, string Skeleton, string MuscularSystem, string RespiratorySystem, string BloodSystem, string NervousSystem)
         {
             this.SkinCovers = SkinCovers;
             this.Skeleton = Skeleton;

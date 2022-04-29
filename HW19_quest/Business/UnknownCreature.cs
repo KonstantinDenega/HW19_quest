@@ -17,7 +17,7 @@ namespace HW19_quest.Business
         public string NervousSystem { get; set; }
         #endregion
 
-        public Mammal()
+        public UnknownCreature()
         {
             this.SkinCovers = "Not Determined";
             this.Skeleton = "Not Determined";

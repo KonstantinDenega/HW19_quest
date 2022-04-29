@@ -1,4 +1,5 @@
-﻿using HW19_quest.ModuleCMenuMain;
+﻿using HW19_quest.ModuleACreature;
+using HW19_quest.ModuleCMenuMain;
 using HW19_quest.ModuleDStatus;
 using HW19_quest.Views;
 using Prism.Ioc;
@@ -32,6 +33,7 @@ namespace HW19_quest
         protected override void ConfigureModuleCatalog(IModuleCatalog moduleCatalog)
         {
             moduleCatalog.AddModule<ModuleMenuMain>();
+            moduleCatalog.AddModule<ModuleCreature>();
             moduleCatalog.AddModule<ModuleStatus>();
         }
     }

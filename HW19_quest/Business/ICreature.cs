@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace HW19_quest.Business
 {
-    internal interface ICreature
+    public interface ICreature
     {
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public long IdtypeCreature { get; set; }
+        //public long Id { get; set; }
+        //public string Name { get; set; }
+        //public long IdtypeCreature { get; set; }
         public string SkinCovers { get; set; }
         public string Skeleton { get; set; }
         public string MuscularSystem { get; set; }

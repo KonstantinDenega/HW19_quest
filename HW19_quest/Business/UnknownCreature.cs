@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace HW19_quest.Business
 {
-    internal class Mammal: ICreature
+    class UnknownCreature : ICreature
     {
         #region Свойства
         public string SkinCovers { get; set; }
@@ -17,14 +17,14 @@ namespace HW19_quest.Business
         public string NervousSystem { get; set; }
         #endregion
 
-        public Mammal(string SkinCovers, string Skeleton, string MuscularSystem, string RespiratorySystem, string BloodSystem, string NervousSystem)
+        public Mammal()
         {
-            this.SkinCovers = SkinCovers;
-            this.Skeleton = Skeleton;
-            this.MuscularSystem = MuscularSystem;
-            this.RespiratorySystem = RespiratorySystem;
-            this.BloodSystem = BloodSystem;
-            this.NervousSystem = NervousSystem;
+            this.SkinCovers = "Not Determined";
+            this.Skeleton = "Not Determined";
+            this.MuscularSystem = "Not Determined";
+            this.RespiratorySystem = "Not Determined";
+            this.BloodSystem = "Not Determined";
+            this.NervousSystem = "Not Determined";
         }
 
         public override string ToString()

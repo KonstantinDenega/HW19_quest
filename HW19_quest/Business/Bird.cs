@@ -8,14 +8,28 @@ namespace HW19_quest.Business
 {
     internal class Bird : ICreature
     {
-        public long Id { get; set; }
-        public string Name { get; set; }
-        public long IdtypeCreature { get; set; }
+        #region Свойства
         public string SkinCovers { get; set; }
         public string Skeleton { get; set; }
         public string MuscularSystem { get; set; }
         public string RespiratorySystem { get; set; }
         public string BloodSystem { get; set; }
         public string NervousSystem { get; set; }
+        #endregion
+
+        public Mammal(string SkinCovers, string Skeleton, string MuscularSystem, string RespiratorySystem, string BloodSystem, string NervousSystem)
+        {
+            this.SkinCovers = SkinCovers;
+            this.Skeleton = Skeleton;
+            this.MuscularSystem = MuscularSystem;
+            this.RespiratorySystem = RespiratorySystem;
+            this.BloodSystem = BloodSystem;
+            this.NervousSystem = NervousSystem;
+        }
+
+        public override string ToString()
+        {
+            return $"{this.SkinCovers} {this.Skeleton} {this.MuscularSystem} {this.RespiratorySystem} {this.BloodSystem} {this.NervousSystem}";
+        }
     }
 }

@@ -20,6 +20,17 @@
         </Grid.RowDefinitions>
 
         <StackPanel>
+
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+
+                <!-- Тип существа по умолчанию -->
+                <CheckBox
+                    IsChecked="{Binding Path=CheckBoxDefaultAdd}"
+                    Margin="5,0,0,10"
+                    FontStyle="Oblique" 
+                    Content="Существо по умолчанию"/>
+            </StackPanel>
+
             <StackPanel Grid.Row="0" Orientation="Horizontal">
 
                 <!-- Тип Существа-->

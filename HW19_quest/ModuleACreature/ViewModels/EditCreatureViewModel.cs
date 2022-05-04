@@ -33,6 +33,13 @@ namespace HW19_quest.ModuleACreature.ViewModels
 
         #region Свойства полей окна EditCreature
 
+        private bool _checkBoxDefaultEdit;
+        public bool CheckBoxDefaultEdit
+        {
+            get { return _checkBoxDefaultEdit; }
+            set { SetProperty(ref _checkBoxDefaultEdit, value); }
+        }
+
         private string _typeCreatureEdit;
         public string TypeCreatureEdit
         {

@@ -20,8 +20,9 @@ namespace HW19_quest.ModuleACreature
 
         public void RegisterTypes(IContainerRegistry containerRegistry)
         {
-            //containerRegistry.RegisterForNavigation<MenuMainMan>();
-            //containerRegistry.RegisterForNavigation<MenuMainCon>();
+            containerRegistry.RegisterForNavigation<ParameterTypeCreature>();
+            containerRegistry.RegisterForNavigation<AddCreature>();
+            containerRegistry.RegisterForNavigation<EditCreature>();  
         }
     }
 }

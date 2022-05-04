@@ -1,33 +1,152 @@
 ﻿using HW19_quest.Business;
+using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
+using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
+using static HW19_quest.Events.Event;
 
 namespace HW19_quest.ModuleACreature.ViewModels
 {
     class ShowTypeCreatureViewModel : BindableBase
     {
-        //private ObservableCollection<ICreature> tempCreature;
-        //public ObservableCollection<ICreature> TempCreature
-        //{
-        //    get { return tempCreature; }
-        //    set { SetProperty(ref tempCreature, value); }
-        //}
 
-        public ObservableCollection<ICreature> TempCreature { get; set; }
+        
+        public DelegateCommand BtnAdd { get; private set; }
+        public DelegateCommand BtnEdit { get; private set; }
+        public DelegateCommand BtnDelete { get; private set; }
+        public DelegateCommand BtnTypeCreatures { get; private set; }
 
-        public ShowTypeCreatureViewModel()
+        private readonly IRegionManager _regionManager;
+        protected readonly IEventAggregator _eventAggregator;
+
+
+
+        private ObservableCollection<Creature> _creatures;
+        public ObservableCollection<Creature> Creatures
         {
-            TempCreature = new ObservableCollection<ICreature>();
-            ICreatureFactory factory = new ConcreteCreatureFactory();
-            ICreature tempMaman = factory.GetCreature("Mammal", "Name_1", "SkinCovers_1", "Skeleton_1", "MuscularSystem_1", "RespiratorySystem_1", "BloodSystem_1", "NervousSystem_1");
-            TempCreature.Add(tempMaman);
+            get { return _creatures; }
+            set { SetProperty(ref _creatures, value); }
+        }
+
+        private Creature _selectedCreatures;
+        public Creature SelectedCreatures
+        {
+            get { return _selectedCreatures; }
+            set { SetProperty(ref _selectedCreatures, value); }
         }
 
 
+        //private TypeCreature _selectedTypeCreatures;
+        //public TypeCreature SelectedTypeCreatures
+        //{
+        //    get { return _selectedTypeCreatures; }
+        //    set { SetProperty(ref _selectedTypeCreatures, value); }
+        //}
+
+        //public List<TypeCreature> ListTypeCreatures
+        //{
+        //    get
+        //    {
+        //        List<TypeCreature> list = new List<TypeCreature>();
+
+        //        list.Add(TypeCreature.Amphibia);
+        //        list.Add(TypeCreature.Bird);
+        //        list.Add(TypeCreature.Mammal);
+        //        list.Add(TypeCreature.Unknown);
+
+        //        return list;
+        //    }
+        //}
+
+        public ShowTypeCreatureViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
+        {
+            _regionManager = regionManager;
+            _eventAggregator = eventAggregator;
+
+
+            BtnAdd = new DelegateCommand(MetBtnAdd);
+            BtnEdit = new DelegateCommand(MetBtnEdit);
+            BtnDelete = new DelegateCommand(MetBtnDelete);
+            BtnTypeCreatures = new DelegateCommand(MetBtnTypeCreatures);
+
+            CreateFileBDClient();
+
+            //TempCreature = new ObservableCollection<ICreature>();
+            //ICreatureFactory factory = new ConcreteCreatureFactory();
+            //ICreature tempMaman = factory.GetCreature("Mammal", "Name_1", "SkinCovers_1", "Skeleton_1", "MuscularSystem_1", "RespiratorySystem_1", "BloodSystem_1", "NervousSystem_1");
+            //TempCreature.Add(tempMaman);
+        }
+
+        /// <summary>
+        /// Метод открытия окна AddCreature
+        /// </summary>
+        private void MetBtnAdd()
+        {
+            _regionManager.RequestNavigate("ParametrCreatureRegion", "AddCreature");
+            _eventAggregator.GetEvent<EventCreatureCollection>().Publish(Creatures);
+        }
+
+        /// <summary>
+        /// Метод открытия окна EditCreature
+        /// </summary>
+        private void MetBtnEdit()
+        {
+            if (SelectedCreatures != null)
+            {
+                _regionManager.RequestNavigate("ParametrCreatureRegion", "EditCreature");
+                _eventAggregator.GetEvent<EventCreatureCollection>().Publish(Creatures);
+            }
+            else MessageBox.Show("Невыбранна строка для изменения");
+        }
+
+        /// <summary>
+        /// Метод удаление записи в коллекции Creature
+        /// </summary>
+        private void MetBtnDelete()
+        {
+            if (SelectedCreatures != null)
+            {
+                MessageBox.Show("Delete");
+
+                ////Удаление из БД bdMSSQL клиента
+                //using (bdMSSQLContext db = new bdMSSQLContext())
+                //{
+                //    db.Users.Remove(SelectedManClient);
+                //    await db.SaveChangesAsync();
+                //}
+
+                //ManClients.Remove(SelectedManClient);
+                //MetMessageStatus("Данные успешно удалены", true);
+            }
+            else MessageBox.Show("Невыбранна строка для удаления");
+        }
+
+        /// <summary>
+        /// Метод заполнения данными программу
+        /// </summary>
+        public void CreateFileBDClient()
+        {
+            ObservableCollection<Creature> TempCreature;
+            using (DBCreatureContext db = new DBCreatureContext())
+            {
+                // получаем данные из бд
+                TempCreature = new ObservableCollection<Creature>(db.Creatures.ToList());
+            }
+            Creatures = TempCreature;
+        }
+
+
+        private void MetBtnTypeCreatures()
+        {
+            //_regionManager.RequestNavigate("ParametrCreatureRegion", "ParameterTypeCreature");
+            //_eventAggregator.GetEvent<EventTypeCreature>().Publish(SelectedTypeCreatures);
+        }
     }
 }

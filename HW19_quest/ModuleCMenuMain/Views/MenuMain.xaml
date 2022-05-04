@@ -25,11 +25,6 @@
                     Command="{Binding BtnExit}"
                     Header="Выход"/>
             </MenuItem>
-            <MenuItem  Header="Справка">
-                <MenuItem 
-                    Command="{Binding BtnHistory}"
-                    Header="История"/>
-            </MenuItem>
         </Menu>
     </Grid>
 

@@ -13,25 +13,11 @@ namespace HW19_quest.ModuleCMenuMain.ViewModels
 {
     class MenuMainViewModel : BindableBase
     {
-        private readonly IRegionManager _regionManager;
-        protected readonly IEventAggregator _eventAggregator;
-
         public DelegateCommand BtnExit { get; set; }
-        public DelegateCommand BtnHistory { get; set; }
 
-
-        public MenuMainViewModel(RegionManager regionManager, IEventAggregator eventAggregator)
+        public MenuMainViewModel()
         {
-            _regionManager = regionManager;
-            _eventAggregator = eventAggregator;
-
             BtnExit = new DelegateCommand(MetBtnExit);
-            BtnHistory = new DelegateCommand(MetBtnHistory);
-        }
-
-        private void MetBtnHistory()
-        {
-            //_eventAggregator.GetEvent<EventText>().Publish("LogMan");
         }
 
         private void MetBtnExit()

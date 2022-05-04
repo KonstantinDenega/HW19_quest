@@ -7,22 +7,149 @@
              mc:Ignorable="d"
              d:DesignHeight="450" d:DesignWidth="800" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             xmlns:prism="http://prismlibrary.com/"             
+             xmlns:prism="http://prismlibrary.com/" xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              prism:ViewModelLocator.AutoWireViewModel="True">
+
     <Grid>
-        <!--<Grid.ColumnDefinitions>
+        <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="50"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="35"/>
-        </Grid.RowDefinitions>-->
+            <RowDefinition Height="300"/>
+        </Grid.RowDefinitions>
 
-        <TextBlock Text="Work" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="72"/>
-        <ListBox
-            ItemsSource="{Binding TempCreature}"
-            HorizontalAlignment="Left"/>
+        <!-- Панель кнопок клиента -->
+        <StackPanel Orientation="Horizontal" Grid.Row="1">
+            <Button 
+                Content="Добавить" 
+                Command ="{Binding BtnAdd}" />
+            <Button 
+                Content="Изменить" 
+                Command ="{Binding BtnEdit}" />
+            <Button 
+                Content="Удалить" 
+                Command ="{Binding BtnDelete}" />
+        </StackPanel>
+
+        <DataGrid
+            Margin="0,5,0,0"
+            Grid.Column="0"
+            Grid.Row="2"
+            IsReadOnly="True"
+            ItemsSource="{Binding Creatures}"
+            SelectedItem="{Binding SelectedCreatures, Mode=TwoWay}"
+            CanUserAddRows="True" CanUserDeleteRows="True" 
+            CanUserSortColumns="True" CanUserReorderColumns="True"
+            AutoGenerateColumns="False">
+
+            <DataGrid.Columns>
+                <DataGridTextColumn
+                    Binding="{Binding Path=Id}"
+                    Header="ID">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn
+                    Binding="{Binding Path=TypeCreature}"
+                    Header="Тип существа"
+                    Width="*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn
+                    Binding="{Binding Path=Name}"
+                    Header="Имя существа"
+                    Width="*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn
+                    Binding="{Binding Path=SkinCovers}"
+                    Header="Кожные покровы"
+                    Width="*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn
+                    Binding="{Binding Path=Skeleton}"
+                    Header="Скелет"
+                    Width="*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn
+                    Binding="{Binding Path=MuscularSystem}"
+                    Header="Мышечная система"
+                    Width="*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+                
+                <DataGridTextColumn
+                    Binding="{Binding Path=RespiratorySystem}"
+                    Header="Дыхательная система"
+                    Width="*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+
+                <DataGridTextColumn
+                    Binding="{Binding Path=NervousSystem}"
+                    Header="Нервная система"
+                    Width="*">
+                    <DataGridTextColumn.HeaderStyle>
+                        <Style TargetType="DataGridColumnHeader">
+                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.HeaderStyle>
+                </DataGridTextColumn>
+
+            </DataGrid.Columns>
+
+            <i:Interaction.Triggers>
+                <i:EventTrigger EventName="SelectionChanged">
+                    <i:InvokeCommandAction Command="{Binding BtnTypeCreatures}"/>
+                </i:EventTrigger>
+            </i:Interaction.Triggers>
+
+        </DataGrid>
+
+
+        <ContentControl 
+            Grid.Column="0"
+            Grid.Row="3"
+            Margin="5"
+            prism:RegionManager.RegionName="ParametrCreatureRegion"/>
 
     </Grid>
+
 </UserControl>

@@ -15,8 +15,8 @@ namespace HW19_quest.Business
             switch (TypeCreature)
             {
                 case "Mammal": return new Mammal(Name, SkinCovers, Skeleton, MuscularSystem, RespiratorySystem, BloodSystem, NervousSystem);
-                case "2": return new Amphibia(Name, SkinCovers, Skeleton, MuscularSystem, RespiratorySystem, BloodSystem, NervousSystem);
-                case "3": return new Bird(Name, SkinCovers, Skeleton, MuscularSystem, RespiratorySystem, BloodSystem, NervousSystem);
+                case "Amphibia": return new Amphibia(Name, SkinCovers, Skeleton, MuscularSystem, RespiratorySystem, BloodSystem, NervousSystem);
+                case "Bird": return new Bird(Name, SkinCovers, Skeleton, MuscularSystem, RespiratorySystem, BloodSystem, NervousSystem);
 
                 default: return new UnknownCreature();
             }

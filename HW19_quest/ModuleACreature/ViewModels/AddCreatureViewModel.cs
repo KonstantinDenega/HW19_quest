@@ -36,21 +36,14 @@ namespace HW19_quest.ModuleACreature.ViewModels
             _eventAggregator = eventAggregator;
 
             _eventAggregator.GetEvent<EventCreatureCollection>().Subscribe(MetCreatureCollection);
+            _eventAggregator.GetEvent<EventText>().Subscribe(MetCreatureCollection);
 
             BtnSaveAdd = new DelegateCommand(MetBtnSaveAdd);
         }
 
-        private void MetCreatureCollection(ObservableCollection<Creature> obj)
+        private void MetCreatureCollection(string typeCreature)
         {
-            Creatures = obj;
-        }
-
-        /// <summary>
-        /// Метод обработки кнопки BtnSaveAdd окна AddCreature
-        /// </summary>
-        private void MetBtnSaveAdd()
-        {
-            switch (TypeCreatureAdd)
+            switch (typeCreature)
             {
                 case "Млекопитающие":
                     CreateMammal();
@@ -66,7 +59,19 @@ namespace HW19_quest.ModuleACreature.ViewModels
                     CreateUnknown();
                     break;
             }
-            //MessageBox.Show($"{TypeCreatureAdd} / {NameAdd} / {SkinCoversAdd} / {SkeletonAdd} / {MuscularSystemAdd} / {RespiratorySystemAdd} / {NervousSystemAdd}");
+        }
+
+        private void MetCreatureCollection(ObservableCollection<Creature> obj)
+        {
+            Creatures = obj;
+        }
+
+        /// <summary>
+        /// Метод обработки кнопки BtnSaveAdd окна AddCreature
+        /// </summary>
+        private void MetBtnSaveAdd()
+        {
+            CreateCollectionCreature();
             MetClearTextBox();
             MessageBox.Show("Данные успешно добавлены");
         }
@@ -77,9 +82,7 @@ namespace HW19_quest.ModuleACreature.ViewModels
             SkeletonAdd = createCreatures.Create(TypeCreature.Mammal).Skeleton;
             MuscularSystemAdd = createCreatures.Create(TypeCreature.Mammal).MuscularSystem;
             RespiratorySystemAdd = createCreatures.Create(TypeCreature.Mammal).RespiratorySystem;
-            NervousSystemAdd = createCreatures.Create(TypeCreature.Mammal).NervousSystem;
-
-            CreateCollectionCreature();
+            NervousSystemAdd = createCreatures.Create(TypeCreature.Mammal).NervousSystem;  
         }
 
         private void CreateBird()
@@ -88,9 +91,7 @@ namespace HW19_quest.ModuleACreature.ViewModels
             SkeletonAdd = createCreatures.Create(TypeCreature.Bird).Skeleton;
             MuscularSystemAdd = createCreatures.Create(TypeCreature.Bird).MuscularSystem;
             RespiratorySystemAdd = createCreatures.Create(TypeCreature.Bird).RespiratorySystem;
-            NervousSystemAdd = createCreatures.Create(TypeCreature.Bird).NervousSystem;
-
-            CreateCollectionCreature();
+            NervousSystemAdd = createCreatures.Create(TypeCreature.Bird).NervousSystem;  
         }
 
         private void CreateAmphibia()
@@ -100,8 +101,6 @@ namespace HW19_quest.ModuleACreature.ViewModels
             MuscularSystemAdd = createCreatures.Create(TypeCreature.Amphibia).MuscularSystem;
             RespiratorySystemAdd = createCreatures.Create(TypeCreature.Amphibia).RespiratorySystem;
             NervousSystemAdd = createCreatures.Create(TypeCreature.Amphibia).NervousSystem;
-
-            CreateCollectionCreature();
         }
 
         private void CreateUnknown()
@@ -111,8 +110,6 @@ namespace HW19_quest.ModuleACreature.ViewModels
             MuscularSystemAdd = createCreatures.Create(TypeCreature.Unknown).MuscularSystem;
             RespiratorySystemAdd = createCreatures.Create(TypeCreature.Unknown).RespiratorySystem;
             NervousSystemAdd = createCreatures.Create(TypeCreature.Unknown).NervousSystem;
-
-            CreateCollectionCreature();
         }
 
         private void CreateCollectionCreature()
@@ -122,7 +119,6 @@ namespace HW19_quest.ModuleACreature.ViewModels
                 SkeletonAdd, MuscularSystemAdd,
                 RespiratorySystemAdd, NervousSystemAdd));
         }
-
 
         #region Метод очистки строк ввода
         /// <summary>
@@ -145,7 +141,11 @@ namespace HW19_quest.ModuleACreature.ViewModels
         public string TypeCreatureAdd
         {
             get { return _typeCreatureAdd; }
-            set { SetProperty(ref _typeCreatureAdd, value); }
+            set
+            {
+                _typeCreatureAdd = value;
+                _eventAggregator.GetEvent<EventText>().Publish(TypeCreatureAdd);
+            }
         }
 
         private string _nameAdd;

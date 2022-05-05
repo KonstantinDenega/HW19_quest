@@ -42,29 +42,6 @@ namespace HW19_quest.ModuleACreature.ViewModels
             set { SetProperty(ref _selectedCreatures, value); }
         }
 
-
-        //private TypeCreature _selectedTypeCreatures;
-        //public TypeCreature SelectedTypeCreatures
-        //{
-        //    get { return _selectedTypeCreatures; }
-        //    set { SetProperty(ref _selectedTypeCreatures, value); }
-        //}
-
-        //public List<TypeCreature> ListTypeCreatures
-        //{
-        //    get
-        //    {
-        //        List<TypeCreature> list = new List<TypeCreature>();
-
-        //        list.Add(TypeCreature.Amphibia);
-        //        list.Add(TypeCreature.Bird);
-        //        list.Add(TypeCreature.Mammal);
-        //        list.Add(TypeCreature.Unknown);
-
-        //        return list;
-        //    }
-        //}
-
         public ShowTypeCreatureViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
         {
             _regionManager = regionManager;
@@ -108,8 +85,6 @@ namespace HW19_quest.ModuleACreature.ViewModels
         {
             if (SelectedCreatures != null)
             {
-                MessageBox.Show("Delete");
-
                 ////Удаление из БД bdMSSQL клиента
                 //using (bdMSSQLContext db = new bdMSSQLContext())
                 //{
@@ -117,8 +92,8 @@ namespace HW19_quest.ModuleACreature.ViewModels
                 //    await db.SaveChangesAsync();
                 //}
 
-                //ManClients.Remove(SelectedManClient);
-                //MetMessageStatus("Данные успешно удалены", true);
+                Creatures.Remove(SelectedCreatures);
+                MessageBox.Show("Данные успешно удалены");
             }
             else MessageBox.Show("Невыбранна строка для удаления");
         }

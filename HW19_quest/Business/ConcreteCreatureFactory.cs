@@ -8,19 +8,16 @@ namespace HW19_quest.Business
 {
     class ConcreteCreatureFactory: ICreatureFactory
     {
-
-
-        public ICreature GetCreature(string TypeCreature, string Name, string SkinCovers, string Skeleton, string MuscularSystem, string RespiratorySystem, string BloodSystem, string NervousSystem)
+        public ICreature GetCreature(TypeCreature TypeCreature)
         {
             switch (TypeCreature)
             {
-                case "Mammal": return new Mammal(Name, SkinCovers, Skeleton, MuscularSystem, RespiratorySystem, BloodSystem, NervousSystem);
-                case "Amphibia": return new Amphibia(Name, SkinCovers, Skeleton, MuscularSystem, RespiratorySystem, BloodSystem, NervousSystem);
-                case "Bird": return new Bird(Name, SkinCovers, Skeleton, MuscularSystem, RespiratorySystem, BloodSystem, NervousSystem);
-
+                case TypeCreature.Mammal: return new Mammal();
+                case TypeCreature.Amphibia: return new Amphibia();
+                case TypeCreature.Bird: return new Bird();
+                case TypeCreature.Unknown: return new UnknownCreature();
                 default: return new UnknownCreature();
             }
         }
-
     }
 }

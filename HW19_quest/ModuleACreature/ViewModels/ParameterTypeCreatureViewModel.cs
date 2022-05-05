@@ -18,6 +18,7 @@ namespace HW19_quest.ModuleACreature.ViewModels
         protected readonly IEventAggregator _eventAggregator;
         private readonly IRegionManager _regionManager;
 
+        Dictionary<TypeCreature, string> DictionaryCreature;
 
         private ObservableCollection<ICreature> tempCreature;
         public ObservableCollection<ICreature> TempCreature
@@ -32,36 +33,47 @@ namespace HW19_quest.ModuleACreature.ViewModels
             _eventAggregator = eventAggregator;
 
             _eventAggregator.GetEvent<EventTypeCreature>().Subscribe(MetSelectedTypeCreature);
+
+
+            DictionaryCreature = new Dictionary<TypeCreature, string>()
+            { 
+                {TypeCreature.Mammal, "Млекопитающие" },
+                {TypeCreature.Bird,"Птицы"},
+                {TypeCreature.Amphibia,"Земноводные"}
+            };
+
         }
 
         private void MetSelectedTypeCreature(TypeCreature obj)
         {
-            CreateCreature(obj.ToString());
+            CreateCreature(obj);
         }
 
-        private void CreateCreature(string temp)
+        private void CreateCreature(TypeCreature temp)
         {
+            
             TempCreature = new ObservableCollection<ICreature>();
             ICreatureFactory factory = new ConcreteCreatureFactory();
             ICreature tempMaman;
             switch (temp)
             {
-                case "Mammal":
-                    tempMaman = factory.GetCreature(temp, "Name_1", "SkinCovers_1", "Skeleton_1", "MuscularSystem_1", "RespiratorySystem_1", "BloodSystem_1", "NervousSystem_1");
+                case TypeCreature.Mammal:
+                    tempMaman = factory.GetCreature(temp);
                     TempCreature.Add(tempMaman);
                     break;
 
-                case "Amphibia":
-                    tempMaman = factory.GetCreature(temp, "Name_2", "SkinCovers_2", "Skeleton_2", "MuscularSystem_2", "RespiratorySystem_2", "BloodSystem_2", "NervousSystem_2");
+                case TypeCreature.Amphibia:
+                    tempMaman = factory.GetCreature(temp);
                     TempCreature.Add(tempMaman);
                     break;
 
-                case "Bird":
-                    tempMaman = factory.GetCreature(temp, "Name_3", "SkinCovers_3", "Skeleton_3", "MuscularSystem_3", "RespiratorySystem_3", "BloodSystem_3", "NervousSystem_3");
+                case TypeCreature.Bird:
+                    tempMaman = factory.GetCreature(temp);
                     TempCreature.Add(tempMaman);
                     break;
-                case "Unknown":
-                    tempMaman = factory.GetCreature(temp, "Name_3", "SkinCovers_3", "Skeleton_3", "MuscularSystem_3", "RespiratorySystem_3", "BloodSystem_3", "NervousSystem_3");
+
+                default:
+                    tempMaman = factory.GetCreature(temp);
                     TempCreature.Add(tempMaman);
                     break;
             }

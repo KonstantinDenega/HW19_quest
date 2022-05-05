@@ -1,29 +1,48 @@
-﻿using Prism.Commands;
+﻿using HW19_quest.Business;
+using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
 using Prism.Regions;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static HW19_quest.Events.Event;
 
 namespace HW19_quest.ModuleACreature.ViewModels
 {
     class AddCreatureViewModel : BindableBase
     {
+        CreateCreature createCreatures = new CreateCreature();
+
         public DelegateCommand BtnSaveAdd { get; private set; }
 
         private readonly IRegionManager _regionManager;
         protected readonly IEventAggregator _eventAggregator;
+
+        private ObservableCollection<Creature> _creatures;
+        public ObservableCollection<Creature> Creatures
+        {
+            get { return _creatures; }
+            set { SetProperty(ref _creatures, value); }
+        }
 
         public AddCreatureViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
         {
             _regionManager = regionManager;
             _eventAggregator = eventAggregator;
 
+            _eventAggregator.GetEvent<EventCreatureCollection>().Subscribe(MetCreatureCollection);
+
             BtnSaveAdd = new DelegateCommand(MetBtnSaveAdd);
+        }
+
+        private void MetCreatureCollection(ObservableCollection<Creature> obj)
+        {
+            Creatures = obj;
         }
 
         /// <summary>
@@ -31,9 +50,79 @@ namespace HW19_quest.ModuleACreature.ViewModels
         /// </summary>
         private void MetBtnSaveAdd()
         {
-            MessageBox.Show($"{TypeCreatureAdd} / {NameAdd} / {SkinCoversAdd} / {SkeletonAdd} / {MuscularSystemAdd} / {RespiratorySystemAdd} / {NervousSystemAdd}");
+            switch (TypeCreatureAdd)
+            {
+                case "Млекопитающие":
+                    CreateMammal();
+                    break;
+                case "Птицы":
+                    CreateBird();
+                    break;
+                case "Земноводные":
+                    CreateAmphibia();
+                    break;
+
+                case "Неизвестный":
+                    CreateUnknown();
+                    break;
+            }
+            //MessageBox.Show($"{TypeCreatureAdd} / {NameAdd} / {SkinCoversAdd} / {SkeletonAdd} / {MuscularSystemAdd} / {RespiratorySystemAdd} / {NervousSystemAdd}");
             MetClearTextBox();
+            MessageBox.Show("Данные успешно добавлены");
         }
+
+        private void CreateMammal()
+        {
+            SkinCoversAdd = createCreatures.Create(TypeCreature.Mammal).SkinCovers;
+            SkeletonAdd = createCreatures.Create(TypeCreature.Mammal).Skeleton;
+            MuscularSystemAdd = createCreatures.Create(TypeCreature.Mammal).MuscularSystem;
+            RespiratorySystemAdd = createCreatures.Create(TypeCreature.Mammal).RespiratorySystem;
+            NervousSystemAdd = createCreatures.Create(TypeCreature.Mammal).NervousSystem;
+
+            CreateCollectionCreature();
+        }
+
+        private void CreateBird()
+        {
+            SkinCoversAdd = createCreatures.Create(TypeCreature.Bird).SkinCovers;
+            SkeletonAdd = createCreatures.Create(TypeCreature.Bird).Skeleton;
+            MuscularSystemAdd = createCreatures.Create(TypeCreature.Bird).MuscularSystem;
+            RespiratorySystemAdd = createCreatures.Create(TypeCreature.Bird).RespiratorySystem;
+            NervousSystemAdd = createCreatures.Create(TypeCreature.Bird).NervousSystem;
+
+            CreateCollectionCreature();
+        }
+
+        private void CreateAmphibia()
+        {
+            SkinCoversAdd = createCreatures.Create(TypeCreature.Amphibia).SkinCovers;
+            SkeletonAdd = createCreatures.Create(TypeCreature.Amphibia).Skeleton;
+            MuscularSystemAdd = createCreatures.Create(TypeCreature.Amphibia).MuscularSystem;
+            RespiratorySystemAdd = createCreatures.Create(TypeCreature.Amphibia).RespiratorySystem;
+            NervousSystemAdd = createCreatures.Create(TypeCreature.Amphibia).NervousSystem;
+
+            CreateCollectionCreature();
+        }
+
+        private void CreateUnknown()
+        {
+            SkinCoversAdd = createCreatures.Create(TypeCreature.Unknown).SkinCovers;
+            SkeletonAdd = createCreatures.Create(TypeCreature.Unknown).Skeleton;
+            MuscularSystemAdd = createCreatures.Create(TypeCreature.Unknown).MuscularSystem;
+            RespiratorySystemAdd = createCreatures.Create(TypeCreature.Unknown).RespiratorySystem;
+            NervousSystemAdd = createCreatures.Create(TypeCreature.Unknown).NervousSystem;
+
+            CreateCollectionCreature();
+        }
+
+        private void CreateCollectionCreature()
+        {
+            Creatures.Add(new Creature(
+                TypeCreatureAdd, NameAdd, SkinCoversAdd,
+                SkeletonAdd, MuscularSystemAdd,
+                RespiratorySystemAdd, NervousSystemAdd));
+        }
+
 
         #region Метод очистки строк ввода
         /// <summary>

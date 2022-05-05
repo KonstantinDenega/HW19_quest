@@ -32,10 +32,11 @@
                     HorizontalAlignment="Left" 
                     Text="{Binding Path=TypeCreatureAdd, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}">
 
-                    <TextBlock>Млекопитающие</TextBlock>
-                    <TextBlock>Птицы</TextBlock>
-                    <TextBlock>Земноводные</TextBlock>
-                    <TextBlock >Неизвестный</TextBlock>
+                    <TextBlock Text="Млекопитающие"/>
+                    <TextBlock Text="Птицы"/>
+                    <TextBlock Text="Земноводные"/>
+                    <TextBlock Text="Неизвестный"/>
+
                 </ComboBox>
 
                 <!-- Имя существа- -->

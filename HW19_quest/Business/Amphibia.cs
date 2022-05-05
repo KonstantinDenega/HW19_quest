@@ -9,29 +9,25 @@ namespace HW19_quest.Business
     internal class Amphibia: ICreature
     {
         #region Свойства
-        public string Name { get; set; }
         public string SkinCovers { get; set; }
         public string Skeleton { get; set; }
         public string MuscularSystem { get; set; }
         public string RespiratorySystem { get; set; }
-        public string BloodSystem { get; set; }
         public string NervousSystem { get; set; }
         #endregion
 
-        public Amphibia(string Name, string SkinCovers, string Skeleton, string MuscularSystem, string RespiratorySystem, string BloodSystem, string NervousSystem)
+        public Amphibia()
         {
-            this.Name = Name;
-            this.SkinCovers = SkinCovers;
-            this.Skeleton = Skeleton;
-            this.MuscularSystem = MuscularSystem;
-            this.RespiratorySystem = RespiratorySystem;
-            this.BloodSystem = BloodSystem;
-            this.NervousSystem = NervousSystem;
+            this.SkinCovers = "Amphibia_SkinCovers";
+            this.Skeleton = "Amphibia_Skeleton";
+            this.MuscularSystem = "Amphibia_MuscularSystem";
+            this.RespiratorySystem = "Amphibia_RespiratorySystem";
+            this.NervousSystem = "Amphibia_NervousSystem";
         }
 
         public override string ToString()
         {
-            return $"{this.Name} {this.SkinCovers} {this.Skeleton} {this.MuscularSystem} {this.RespiratorySystem} {this.BloodSystem} {this.NervousSystem}";
+            return $"{this.SkinCovers} {this.Skeleton} {this.MuscularSystem} {this.RespiratorySystem} {this.NervousSystem}";
         }
     }
 }

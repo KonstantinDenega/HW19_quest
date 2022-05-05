@@ -9,7 +9,6 @@ namespace HW19_quest.Business
     class UnknownCreature : ICreature
     {
         #region Свойства
-        public string Name { get; set; }
         public string SkinCovers { get; set; }
         public string Skeleton { get; set; }
         public string MuscularSystem { get; set; }
@@ -20,7 +19,6 @@ namespace HW19_quest.Business
 
         public UnknownCreature()
         {
-            this.Name = "Not Determined";
             this.SkinCovers = "Not Determined";
             this.Skeleton = "Not Determined";
             this.MuscularSystem = "Not Determined";
@@ -31,7 +29,7 @@ namespace HW19_quest.Business
 
         public override string ToString()
         {
-            return $"{this.Name} {this.SkinCovers} {this.Skeleton} {this.MuscularSystem} {this.RespiratorySystem} {this.BloodSystem} {this.NervousSystem}";
+            return $"{this.SkinCovers} {this.Skeleton} {this.MuscularSystem} {this.RespiratorySystem} {this.BloodSystem} {this.NervousSystem}";
         }
     }
 }

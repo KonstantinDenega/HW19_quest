@@ -74,14 +74,9 @@ namespace HW19_quest.ModuleACreature.ViewModels
             BtnAdd = new DelegateCommand(MetBtnAdd);
             BtnEdit = new DelegateCommand(MetBtnEdit);
             BtnDelete = new DelegateCommand(MetBtnDelete);
-            BtnTypeCreatures = new DelegateCommand(MetBtnTypeCreatures);
 
             CreateFileBDClient();
 
-            //TempCreature = new ObservableCollection<ICreature>();
-            //ICreatureFactory factory = new ConcreteCreatureFactory();
-            //ICreature tempMaman = factory.GetCreature("Mammal", "Name_1", "SkinCovers_1", "Skeleton_1", "MuscularSystem_1", "RespiratorySystem_1", "BloodSystem_1", "NervousSystem_1");
-            //TempCreature.Add(tempMaman);
         }
 
         /// <summary>
@@ -140,13 +135,6 @@ namespace HW19_quest.ModuleACreature.ViewModels
                 TempCreature = new ObservableCollection<Creature>(db.Creatures.ToList());
             }
             Creatures = TempCreature;
-        }
-
-
-        private void MetBtnTypeCreatures()
-        {
-            //_regionManager.RequestNavigate("ParametrCreatureRegion", "ParameterTypeCreature");
-            //_eventAggregator.GetEvent<EventTypeCreature>().Publish(SelectedTypeCreatures);
         }
     }
 }

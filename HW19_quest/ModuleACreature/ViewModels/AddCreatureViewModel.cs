@@ -41,7 +41,6 @@ namespace HW19_quest.ModuleACreature.ViewModels
         /// </summary>
         private void MetClearTextBox()
         {
-            TypeCreatureAdd = String.Empty;
             NameAdd = String.Empty;
             SkinCoversAdd = String.Empty;
             SkeletonAdd = String.Empty;
@@ -52,13 +51,6 @@ namespace HW19_quest.ModuleACreature.ViewModels
         #endregion
 
         #region Свойства полей окна AddCreature
-
-        private bool _checkBoxDefaultAdd;
-        public bool CheckBoxDefaultAdd
-        {
-            get { return _checkBoxDefaultAdd; }
-            set { SetProperty(ref _checkBoxDefaultAdd, value); }
-        }
 
         private string _typeCreatureAdd;
         public string TypeCreatureAdd

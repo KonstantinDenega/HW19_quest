@@ -5,30 +5,31 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:HW19_quest.ModuleACreature.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:prism="http://prismlibrary.com/" 
              xmlns:i="http://schemas.microsoft.com/xaml/behaviors"
              prism:ViewModelLocator.AutoWireViewModel="True">
     <Grid >
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto"/>
-            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition Width="210"/>
             <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="110"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="40"/>
         </Grid.RowDefinitions>
 
         <StackPanel>
+            
             <StackPanel Grid.Row="0" Grid.Column="0"  Orientation="Vertical">
 
                 <!-- Тип существа -->
                 <TextBlock Margin="5,0,0,0" Text="Тип существа:"/>
+                
                 <ComboBox
                     Margin="10,0,0,0"
-                    Width="200"
+                    Width="150"
                     HorizontalAlignment="Left" 
                     Text="{Binding Path=TypeCreatureAdd, UpdateSourceTrigger=PropertyChanged, Mode=OneWayToSource}">
 
@@ -41,10 +42,11 @@
 
                 <!-- Имя существа- -->
                 <TextBlock Margin="10,30,0,0"  Text="Имя Существа:"/>
-                <TextBox  Margin="10,0,0,0" Width="200" FontStyle="Oblique" 
+                <TextBox Width="200"  
                          Text="{Binding NameAdd, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
             </StackPanel>
+            
         </StackPanel>
 
         <Border Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="1"
@@ -60,33 +62,32 @@
             <StackPanel Margin="0,40,0,0" Orientation="Horizontal">
                 <!-- Кожа существа- -->
                 <TextBlock Margin="5,0,0,0"  Text="Кожа существа:"/>
-                <TextBox Margin="10,0,0,0" Width="200" FontStyle="Oblique" 
+                <TextBox Margin="10,0,0,0" Width="150" FontStyle="Oblique" 
                          Text="{Binding SkinCoversAdd, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                 <!-- Скелет существа- -->
                 <TextBlock Margin="10,0,0,0"  Text="Скелет существа:"/>
-                <TextBox Margin="10,0,0,0" Width="200" FontStyle="Oblique" 
+                    <TextBox Margin="10,0,0,0" Width="150" FontStyle="Oblique" 
                          Text="{Binding SkeletonAdd, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                
+                    <!-- Мышечная система существа- -->
+                    <TextBlock   Text="Мышечная система существа:"/>
+                    <TextBox  Width="150" FontStyle="Oblique" 
+                         Text="{Binding MuscularSystemAdd, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
-            </StackPanel>
+                </StackPanel>
 
             <StackPanel Margin="0,40,0,0"  Orientation="Horizontal">
 
-                <!-- Мышечная система существа- -->
-                <TextBlock Margin="0,0,0,0"  Text="Мышечная система существа:"/>
-                <TextBox Margin="0,0,0,0" Width="200" FontStyle="Oblique" 
-                         Text="{Binding MuscularSystemAdd, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-
                 <!-- Дыхательная система существа- -->
                 <TextBlock Margin="10,0,0,0"  Text="Дыхательная система существа:"/>
-                <TextBox Margin="10,0,0,0" Width="200" FontStyle="Oblique" 
+                    <TextBox Margin="10,0,0,0" Width="150" FontStyle="Oblique" 
                          Text="{Binding RespiratorySystemAdd, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
 
                 <!-- Нервная система существа- -->
                 <TextBlock Margin="10,0,0,0"  Text="Нервная система существа:"/>
-                <TextBox Margin="10,0,10,0" Width="200" FontStyle="Oblique" 
+                    <TextBox Margin="10,0,10,0" Width="150" FontStyle="Oblique" 
                          Text="{Binding NervousSystemAdd, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-
 
             </StackPanel>
             
@@ -95,10 +96,10 @@
         </Border>
         
         <!-- Сохранить-->
-        <Button Grid.Row="1" Grid.Column="2"  VerticalAlignment="Top" HorizontalContentAlignment="Right"
-                Margin="0,0,0,0"
+        <Button Grid.Row="1" Grid.Column="2"  VerticalAlignment="Bottom" 
                 Width="100" Height="30"
                 Content="Сохранить"
                 Command="{Binding BtnSaveAdd}"/>
     </Grid>
+    
 </UserControl>

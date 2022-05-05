@@ -2,7 +2,6 @@
 using Prism.Commands;
 using Prism.Events;
 using Prism.Mvvm;
-using Prism.Regions;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -20,7 +19,6 @@ namespace HW19_quest.ModuleACreature.ViewModels
 
         public DelegateCommand BtnSaveAdd { get; private set; }
 
-        private readonly IRegionManager _regionManager;
         protected readonly IEventAggregator _eventAggregator;
 
         private ObservableCollection<Creature> _creatures;
@@ -30,9 +28,8 @@ namespace HW19_quest.ModuleACreature.ViewModels
             set { SetProperty(ref _creatures, value); }
         }
 
-        public AddCreatureViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
+        public AddCreatureViewModel(IEventAggregator eventAggregator)
         {
-            _regionManager = regionManager;
             _eventAggregator = eventAggregator;
 
             _eventAggregator.GetEvent<EventCreatureCollection>().Subscribe(MetCreatureCollection);
@@ -76,6 +73,8 @@ namespace HW19_quest.ModuleACreature.ViewModels
             MessageBox.Show("Данные успешно добавлены");
         }
 
+        #region Методы добавления данных в поля ввода
+
         private void CreateMammal()
         {
             SkinCoversAdd = createCreatures.Create(TypeCreature.Mammal).SkinCovers;
@@ -112,13 +111,31 @@ namespace HW19_quest.ModuleACreature.ViewModels
             NervousSystemAdd = createCreatures.Create(TypeCreature.Unknown).NervousSystem;
         }
 
-        private void CreateCollectionCreature()
+        private async void CreateCollectionCreature()
         {
-            Creatures.Add(new Creature(
-                TypeCreatureAdd, NameAdd, SkinCoversAdd,
-                SkeletonAdd, MuscularSystemAdd,
-                RespiratorySystemAdd, NervousSystemAdd));
+            Creature TempCollection = new Creature
+            {
+                TypeCreature = TypeCreatureAdd.ToString(),
+                Name = NameAdd,
+                SkinCovers = SkinCoversAdd,
+                Skeleton = SkeletonAdd,
+                MuscularSystem = MuscularSystemAdd,
+                RespiratorySystem= RespiratorySystemAdd,
+                NervousSystem = NervousSystemAdd
+            };
+
+            
+
+            using (DBCreatureContext db = new DBCreatureContext())
+            {
+                //добавляем их в бд
+                await db.Creatures.AddRangeAsync(TempCollection);
+                await db.SaveChangesAsync();
+            }
+
+            Creatures.Add(TempCollection);
         }
+        #endregion
 
         #region Метод очистки строк ввода
         /// <summary>

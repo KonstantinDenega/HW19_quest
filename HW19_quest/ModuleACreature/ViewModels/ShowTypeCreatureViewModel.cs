@@ -72,8 +72,10 @@ namespace HW19_quest.ModuleACreature.ViewModels
         {
             if (SelectedCreatures != null)
             {
+                _eventAggregator.GetEvent<EventSelectedCreatures>().Publish(SelectedCreatures);
                 _regionManager.RequestNavigate("ParametrCreatureRegion", "EditCreature");
                 _eventAggregator.GetEvent<EventCreatureCollection>().Publish(Creatures);
+                
             }
             else MessageBox.Show("Невыбранна строка для изменения");
         }
@@ -81,16 +83,16 @@ namespace HW19_quest.ModuleACreature.ViewModels
         /// <summary>
         /// Метод удаление записи в коллекции Creature
         /// </summary>
-        private void MetBtnDelete()
+        private async void MetBtnDelete()
         {
             if (SelectedCreatures != null)
             {
-                ////Удаление из БД bdMSSQL клиента
-                //using (bdMSSQLContext db = new bdMSSQLContext())
-                //{
-                //    db.Users.Remove(SelectedManClient);
-                //    await db.SaveChangesAsync();
-                //}
+                //Удаление из БД 
+                using (DBCreatureContext db = new DBCreatureContext())
+                {
+                    db.Creatures.Remove(SelectedCreatures);
+                    await db.SaveChangesAsync();
+                }
 
                 Creatures.Remove(SelectedCreatures);
                 MessageBox.Show("Данные успешно удалены");

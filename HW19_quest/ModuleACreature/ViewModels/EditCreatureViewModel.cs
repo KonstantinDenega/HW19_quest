@@ -4,10 +4,12 @@ using Prism.Mvvm;
 using Prism.Regions;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using static HW19_quest.Events.Event;
 
 namespace HW19_quest.ModuleACreature.ViewModels
 {
@@ -15,21 +17,64 @@ namespace HW19_quest.ModuleACreature.ViewModels
     {
         public DelegateCommand BtnSaveEdit { get; private set; }
 
-        private readonly IRegionManager _regionManager;
         protected readonly IEventAggregator _eventAggregator;
 
-        public EditCreatureViewModel(IRegionManager regionManager, IEventAggregator eventAggregator)
+        private ObservableCollection<Creature> _creatures;
+        public ObservableCollection<Creature> Creatures
         {
-            _regionManager = regionManager;
+            get { return _creatures; }
+            set { SetProperty(ref _creatures, value); }
+        }
+
+        private Creature _selectedCreatures;
+        public Creature SelectedCreatures
+        {
+            get { return _selectedCreatures; }
+            set { SetProperty(ref _selectedCreatures, value); }
+        }
+
+        public EditCreatureViewModel( IEventAggregator eventAggregator)
+        {
             _eventAggregator = eventAggregator;
 
+            _eventAggregator.GetEvent<EventCreatureCollection>().Subscribe(MetCreatures);
+            _eventAggregator.GetEvent<EventSelectedCreatures>().Subscribe(MetSelectedCreatures);
+
+
             BtnSaveEdit = new DelegateCommand(MetBtnSaveEdit);
+        }
+
+        private void MetSelectedCreatures(Creature obj)
+        {
+            SelectedCreatures = obj;
+            MetAddEditCreature();
+        }
+
+        private void MetCreatures(ObservableCollection<Creature> obj)
+        {
+            Creatures = obj;
         }
 
         private void MetBtnSaveEdit()
         {
             MessageBox.Show($"{TypeCreatureEdit} / {NameEdit} / {SkinCoversEdit} / {SkeletonEdit} / {MuscularSystemEdit} / {RespiratorySystemEdit} / {NervousSystemEdit}");
         }
+
+
+        /// <summary>
+        /// Метод добавления данных в форму 
+        /// </summary>
+        private void MetAddEditCreature()
+        {
+            TypeCreatureEdit = SelectedCreatures.TypeCreature;
+            NameEdit = SelectedCreatures.Name;
+            SkinCoversEdit = SelectedCreatures.SkinCovers;
+            SkeletonEdit = SelectedCreatures.Skeleton;
+            MuscularSystemEdit = SelectedCreatures.MuscularSystem;
+            RespiratorySystemEdit = SelectedCreatures.RespiratorySystem;
+            NervousSystemEdit = SelectedCreatures.NervousSystem;
+        }
+
 
         #region Свойства полей окна EditCreature
 

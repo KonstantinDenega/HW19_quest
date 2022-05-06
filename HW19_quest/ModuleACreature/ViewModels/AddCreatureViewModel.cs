@@ -115,7 +115,7 @@ namespace HW19_quest.ModuleACreature.ViewModels
         {
             Creature TempCollection = new Creature
             {
-                TypeCreature = TypeCreatureAdd.ToString(),
+                TypeCreature = TypeCreatureAdd,
                 Name = NameAdd,
                 SkinCovers = SkinCoversAdd,
                 Skeleton = SkeletonAdd,

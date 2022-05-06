@@ -57,9 +57,47 @@ namespace HW19_quest.ModuleACreature.ViewModels
 
         private void MetBtnSaveEdit()
         {
-            MessageBox.Show($"{TypeCreatureEdit} / {NameEdit} / {SkinCoversEdit} / {SkeletonEdit} / {MuscularSystemEdit} / {RespiratorySystemEdit} / {NervousSystemEdit}");
+            MetEditCreatures();
+            //MessageBox.Show($"{TypeCreatureEdit} / {NameEdit} / {SkinCoversEdit} / {SkeletonEdit} / {MuscularSystemEdit} / {RespiratorySystemEdit} / {NervousSystemEdit}");
         }
 
+
+        /// <summary>
+        /// Метод изменение данных в таблице  User
+        /// </summary>
+        private async void MetEditCreatures()
+        {
+            // Редактирование
+            using (DBCreatureContext db = new DBCreatureContext())
+            {
+                Creature TempDBCreatures = db.Creatures.FirstOrDefault(u => u.Id == SelectedCreatures.Id);
+
+                TempDBCreatures.TypeCreature = TypeCreatureEdit;
+                TempDBCreatures.Name = NameEdit;
+                TempDBCreatures.SkinCovers = SkinCoversEdit;
+                TempDBCreatures.Skeleton = SkeletonEdit;
+                TempDBCreatures.MuscularSystem = MuscularSystemEdit;
+                TempDBCreatures.RespiratorySystem = RespiratorySystemEdit;
+                TempDBCreatures.NervousSystem = NervousSystemEdit;
+                await db.SaveChangesAsync();
+            }
+
+            Creatures.Remove(SelectedCreatures);
+
+            Creature TempCreatures = new Creature()
+            {
+                TypeCreature = SelectedCreatures.TypeCreature,
+                Name = SelectedCreatures.Name,
+                SkinCovers = SelectedCreatures.SkinCovers,
+                Skeleton = SelectedCreatures.Skeleton,
+                MuscularSystem = SelectedCreatures.MuscularSystem,
+                RespiratorySystem = SelectedCreatures.RespiratorySystem,
+                NervousSystem = SelectedCreatures.NervousSystem
+            };
+
+            Creatures.Add(TempCreatures);
+            MessageBox.Show("Данные успешно изменены");
+        }
 
         /// <summary>
         /// Метод добавления данных в форму 

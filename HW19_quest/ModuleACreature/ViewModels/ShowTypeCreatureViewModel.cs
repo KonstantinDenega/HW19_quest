@@ -16,8 +16,6 @@ namespace HW19_quest.ModuleACreature.ViewModels
 {
     class ShowTypeCreatureViewModel : BindableBase
     {
-
-        
         public DelegateCommand BtnAdd { get; private set; }
         public DelegateCommand BtnEdit { get; private set; }
         public DelegateCommand BtnDelete { get; private set; }
@@ -47,13 +45,11 @@ namespace HW19_quest.ModuleACreature.ViewModels
             _regionManager = regionManager;
             _eventAggregator = eventAggregator;
 
-
             BtnAdd = new DelegateCommand(MetBtnAdd);
             BtnEdit = new DelegateCommand(MetBtnEdit);
             BtnDelete = new DelegateCommand(MetBtnDelete);
 
             CreateFileBDClient();
-
         }
 
         /// <summary>
@@ -72,10 +68,9 @@ namespace HW19_quest.ModuleACreature.ViewModels
         {
             if (SelectedCreatures != null)
             {
-                _eventAggregator.GetEvent<EventSelectedCreatures>().Publish(SelectedCreatures);
                 _regionManager.RequestNavigate("ParametrCreatureRegion", "EditCreature");
+                _eventAggregator.GetEvent<EventSelectedCreatures>().Publish(SelectedCreatures);
                 _eventAggregator.GetEvent<EventCreatureCollection>().Publish(Creatures);
-                
             }
             else MessageBox.Show("Невыбранна строка для изменения");
         }

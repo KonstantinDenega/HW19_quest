@@ -110,7 +110,7 @@
                         </Style>
                     </DataGridTextColumn.HeaderStyle>
                 </DataGridTextColumn>
-                
+
                 <DataGridTextColumn
                     Binding="{Binding Path=RespiratorySystem}"
                     Header="Дыхательная система"
@@ -134,13 +134,6 @@
                 </DataGridTextColumn>
 
             </DataGrid.Columns>
-
-            <i:Interaction.Triggers>
-                <i:EventTrigger EventName="SelectionChanged">
-                    <i:InvokeCommandAction Command="{Binding BtnTypeCreatures}"/>
-                </i:EventTrigger>
-            </i:Interaction.Triggers>
-
         </DataGrid>
 
 
